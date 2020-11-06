@@ -10,6 +10,10 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TestCustomerMD5RealmAuthenticator {
     public static void main(String[] args) {
         //1、创建安全管理器对象
@@ -43,6 +47,28 @@ public class TestCustomerMD5RealmAuthenticator {
             System.out.println("用户"+token.getUsername()+"密码错误");
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+        //验证授权
+        if(subject.isAuthenticated()){
+            //查看 subject 是否有 admin 角色
+            System.out.println(subject.hasRole("admin"));
+            //查看 subject 是否有 user1 和 user2 角色
+            System.out.println(subject.hasAllRoles(Arrays.asList("user1","user2")));
+            //查看 subject 是否有 admin 或 user1 或 user2 角色
+            boolean[] booleans = subject.hasRoles(Arrays.asList("admin","user1","user2"));
+            for(boolean bo : booleans){
+                System.out.println(bo);
+            }
+
+            //基于权限字符串的访问控制（资源标识符：操作：资源类型）
+            System.out.println("权限:"+subject.isPermitted("user1:select:xx1"));
+            System.out.println("权限:"+subject.isPermittedAll("user1:select:xx1","user1:create:xx1"));
+            booleans = subject.isPermitted("user1:select:xx1","user1:create:xx1","user1:delete:*");
+            for(boolean bo : booleans){
+                System.out.println(bo);
+            }
+
         }
     }
 }

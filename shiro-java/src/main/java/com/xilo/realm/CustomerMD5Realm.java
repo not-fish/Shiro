@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -12,7 +13,19 @@ import org.apache.shiro.util.ByteSource;
 public class CustomerMD5Realm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        System.out.println("doGetAuthorizationInfo---"+"进行认证："+principalCollection.getPrimaryPrincipal());
+
+        //添加角色
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.addRole("admin");
+        simpleAuthorizationInfo.addRole("user1");
+
+        //将数据库中的查询权限信息赋值给权限对象
+        simpleAuthorizationInfo.addStringPermission("user1:select:xx1");
+        simpleAuthorizationInfo.addStringPermission("user1:create:xx2");
+        simpleAuthorizationInfo.addStringPermission("user1:delete:*");
+
+        return simpleAuthorizationInfo;
     }
 
     @Override
