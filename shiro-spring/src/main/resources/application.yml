@@ -14,3 +14,13 @@ spring:
     mode: HTML5
     servlet:
       content-type: text/html
+  datasource:
+    url: jdbc:mysql://localhost:3306/data01?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: admin
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  type-aliases-package: com.xilo.shiro.entity
+  mapper-locations: classpath:com/xilo/shiro/dao/*.xml
+  config-location: classpath:mybatis-config.xml
