@@ -2,6 +2,7 @@ package com.xilo.shiro.config;
 
 
 import com.xilo.shiro.realms.CustomerRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -26,8 +27,11 @@ public class ShiroConfig {
         //配置系统公共资源
         Map<String,String> map = new HashMap<String,String>();
         // anon 请求这个资源不需要认证和授权
+        map.put("/user","anon");
         map.put("/user/login","anon");
         map.put("/user/logining","anon");
+        map.put("/user/register","anon");
+        map.put("/user/registering","anon");
         //配置系统受限资源
         // authc 请求这个资源需要认证和授权
         map.put("/**","authc");
@@ -55,7 +59,18 @@ public class ShiroConfig {
     //3、创建自定义realm
     @Bean
     public Realm getRealm(){
-        return new CustomerRealm();
+
+        CustomerRealm customerRealm = new CustomerRealm();
+
+        //修改凭证校验匹配器
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        //设置加密算法为MD5
+        credentialsMatcher.setHashAlgorithmName("MD5");
+        //设置散列次数
+        credentialsMatcher.setHashIterations(1024);
+        customerRealm.setCredentialsMatcher(credentialsMatcher);
+
+        return customerRealm;
     }
 
 }

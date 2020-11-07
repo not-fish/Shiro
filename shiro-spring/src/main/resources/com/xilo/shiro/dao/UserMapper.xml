@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xilo.shiro.dao.UserMapper">
+    <insert id="addUser" parameterType="com.xilo.shiro.entity.User">
+        INSERT INTO t_user
+        <trim prefix="(" suffix=')' suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="userPassword != null and userPassword != ''">user_password,</if>
+            <if test="salt != null and salt != ''">salt,</if>
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="userPassword != null and userPassword != ''">#{userPassword},</if>
+            <if test="salt != null and salt != ''">#{salt},</if>
+        </trim>
+    </insert>
+
+    <select id="findByUserName" parameterType="String" resultType="com.xilo.shiro.entity.User">
+        SELECT * FROM t_user
+        WHERE user_name = #{username}
+    </select>
+
+</mapper>
