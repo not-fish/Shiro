@@ -6,8 +6,9 @@
 </head>
 <body>
     <form action="http://localhost:8092/shiro/user/logining" method="post">
-        用户名 : <input type="text" name="username"> <br>
-        密码  : <input type="text" name="password"> <br>
+        用户名 : <input type="text" name="username"> <br/>
+        密码  : <input type="text" name="password"> <br/>
+        验证码：<input type="text" name="verifyCode"><img src="http://localhost:8092/shiro/user/getimage"/> <br/>
         <input type="submit" value="登录">
     </form>
 </body>

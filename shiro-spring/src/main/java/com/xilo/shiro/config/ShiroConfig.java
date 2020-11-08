@@ -32,6 +32,7 @@ public class ShiroConfig {
         map.put("/user/logining","anon");
         map.put("/user/register","anon");
         map.put("/user/registering","anon");
+        map.put("/user/getimage","anon");
         //配置系统受限资源
         // authc 请求这个资源需要认证和授权
         map.put("/**","authc");
