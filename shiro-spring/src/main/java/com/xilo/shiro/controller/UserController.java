@@ -4,6 +4,8 @@ import com.xilo.shiro.entity.User;
 import com.xilo.shiro.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,4 +81,12 @@ public class UserController {
         subject.logout();
         return "redirect:/user/login";
     }
+
+    @RequestMapping("manage")
+    @RequiresRoles("admin")
+    public String manage(){
+        System.out.println("权限符合");
+        return "redirect:/user/index";
+    }
+
 }

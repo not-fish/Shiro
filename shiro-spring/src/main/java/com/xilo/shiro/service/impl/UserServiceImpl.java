@@ -1,6 +1,7 @@
 package com.xilo.shiro.service.impl;
 
 import com.xilo.shiro.dao.UserMapper;
+import com.xilo.shiro.entity.Role;
 import com.xilo.shiro.entity.User;
 import com.xilo.shiro.service.UserService;
 import com.xilo.shiro.utils.SaltUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("userService")
 @Transactional
@@ -37,6 +39,11 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String userName){
         User user = userMapper.findByUserName(userName);
         return  user;
+    }
+
+    @Override
+    public User findUserByUserName(String userName){
+        return userMapper.findUserByUserName(userName);
     }
 
 }
