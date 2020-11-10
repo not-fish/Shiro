@@ -15,6 +15,7 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
     //1、创建shiroFilter 负责拦截所有请求
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager){
