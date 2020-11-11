@@ -23,7 +23,6 @@ public class ShiroConfig {
         //给filter设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
 
-
         //配置系统公共资源
         Map<String,String> map = new HashMap<String,String>();
         // anon 请求这个资源不需要认证和授权
